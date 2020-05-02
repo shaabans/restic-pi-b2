@@ -13,9 +13,9 @@ logging.basicConfig(filename='restic.log',
                     format='%(asctime)s:%(levelname)s: %(message)s',
                     level=logging.DEBUG)
 
-# Check if there is any running process that contains the given name processName.
+# Check if there is any running process that contains the given process
 def is_running(process_name='restic'):
-  #Iterate over the all the running process
+  # Iterate over the all the running process
   for proc in psutil.process_iter():
     try:
       # Check if process name contains the given name string.
@@ -24,7 +24,7 @@ def is_running(process_name='restic'):
         return True
     except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
       pass
-  return False;
+  return False
 
 # Create name in the form of "b2:bucket:repo"
 def get_full_repo_name(bucket_name, repo_name):
@@ -48,7 +48,7 @@ def backup(full_repo_name, backup_path):
   else:
     logging.info('Problem backing up ' + backup_path + ' to repo ' + full_repo_name)
 
-## Create repo if needed, then backup given path
+# Create repo if needed, then backup given path
 def init_and_backup(short_repo_name, backup_path):
   full_repo_name = get_full_repo_name(b2_bucket, short_repo_name)
 
