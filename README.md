@@ -7,6 +7,7 @@ This project provides a brief tutorial, example setup, and backup script for usi
 - Setup your Raspberry Pi on your home network. I recommend setting up a [static IP address](https://pimylifeup.com/raspberry-pi-static-ip-address/) to make life easier.
 - Setup a [Raspberry Pi as a NAS](https://pimylifeup.com/raspberry-pi-nas/). If you're using a Mac, I recommend the option of using AFP (Apple Filing Protocol) with [Netatalk](http://netatalk.sourceforge.net/).
 - Make sure Python 3.x is installed on your Pi (you should be able to run `python3 --version` and get a non-error).
+- Install [psutil](https://github.com/giampaolo/psutil/blob/master/INSTALL.rst).
 - Setup an account on [Backblaze B2](https://www.backblaze.com/b2/cloud-storage.html), setup a bucket to backup to, and get the bucket's API ID and key.
 - Mount the NAS on your computer(s) and put things you want to backup there.
 
