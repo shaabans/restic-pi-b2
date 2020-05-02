@@ -18,3 +18,11 @@ backup_sets = [
   ['restic_repo_name1', '/my/path/to/backup1'],
   ['restic_repo_name2', '/my/path/to/backup2']
 ]
+
+# Choose if results should be emailed using a Gmail account
+# You'll need to setup an app password for your Gmail account:
+# https://support.google.com/accounts/answer/185833?p=InvalidSecondFactor
+send_gmail = True
+gmail_id = 'my_email@gmail.com'
+gmail_app_password = 'my16digitapppass'
+send_to = 'email_to_send_to@whatever.com'

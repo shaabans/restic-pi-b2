@@ -42,11 +42,14 @@ def init_repo(full_repo_name):
 # Kick off a backup
 def backup(full_repo_name, backup_path):
   logging.info('Backing up ' + backup_path + ' to repo ' + full_repo_name)
-  proc = sp.run(['restic', '-r', full_repo_name, 'backup', backup_path])
+  proc = sp.run(['restic', '-r', full_repo_name, 'backup', backup_path],
+                capture_output=True, text=True)
   if proc.returncode == 0:
     logging.info('Successfully backed up ' + backup_path + ' to repo ' + full_repo_name)
+    return proc.stdout
   else:
     logging.info('Problem backing up ' + backup_path + ' to repo ' + full_repo_name)
+    return proc.stderr
 
 # Create repo if needed, then backup given path
 def init_and_backup(short_repo_name, backup_path):
@@ -62,4 +65,14 @@ def init_and_backup(short_repo_name, backup_path):
     init_repo(full_repo_name)
 
   # Kick off the backup
-  backup(full_repo_name, backup_path)
+  return backup(full_repo_name, backup_path)
+
+# Provide stats
+def repo_snapshots(short_repo_name):
+  full_repo_name = get_full_repo_name(b2_bucket, short_repo_name)
+  proc = sp.run(['restic', 'snapshots', '-r', full_repo_name],
+                capture_output=True, text=True)
+  if proc.returncode == 0:
+    return proc.stdout
+  else:
+    return proc.stderr
