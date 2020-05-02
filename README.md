@@ -18,7 +18,7 @@ This project provides a brief tutorial, example setup, and backup script for usi
 
 ```
 # Run a Restic/B2 backup every morning at at 1:13am
-13 1 * * * root cd /home/nas/restic-pi-b2 && ./back.py
+13 1 * * * root cd /home/nas/restic-pi-b2 && python3 back.py
 ```
 
 ## Motivation
