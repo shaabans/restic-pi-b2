@@ -12,7 +12,8 @@ def main():
                       + ' to repo ' + backup_set[0]
                       + ':\n'
                       + restic_util.init_and_backup(backup_set[0], backup_set[1])
-                      + restic_util.repo_snapshots(backup_set[0]))
+                      + restic_util.repo_snapshots(backup_set[0])
+                      + restic_util.check_integrity(backup_set[0]))
     print(email_output)
 
     if config.send_gmail:
