@@ -51,6 +51,20 @@ def backup(full_repo_name, backup_path):
     logging.info('Problem backing up ' + backup_path + ' to repo ' + full_repo_name)
     return proc.stderr
 
+def check_integrity(short_repo_name):
+  full_repo_name = get_full_repo_name(b2_bucket, short_repo_name)
+  logging.info('Checking integrity of repo ' + full_repo_name)
+  proc = sp.run(['restic', '-r', full_repo_name, 'check'],
+                capture_output=True, text=True)
+  if proc.returncode == 0:
+    message = 'Repo integrity looks good for ' + full_repo_name
+    logging.info(message)
+    return message
+  else:
+    message = 'Problem with repo integrity for ' + full_repo_name + proc.stderr
+    logging.info(message)
+    return message
+
 # Create repo if needed, then backup given path
 def init_and_backup(short_repo_name, backup_path):
   full_repo_name = get_full_repo_name(b2_bucket, short_repo_name)
