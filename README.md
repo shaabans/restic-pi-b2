@@ -92,7 +92,7 @@ Alternatives like the [personal backup](https://www.backblaze.com/backup-pricing
 - Better logging
 - More email options to report on nightly backups (now the only option is to use a Gmail account's SMTP server)
 - Prune Restic repos on offsite storage to contain space based on a policy you can configure
-- Check Restic repository integrity after each backup
+- Consider incremental data file integrity check with `--read-data-subset=n/t` option in Restic
 
 ## Built With
 - [Restic](https://github.com/restic/restic)
