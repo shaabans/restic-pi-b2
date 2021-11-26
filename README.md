@@ -88,6 +88,25 @@ In the example above, I allocated 1.5TB for each of 3 NAS users. Using [B2's pri
 
 Alternatives like the [personal backup](https://www.backblaze.com/backup-pricing.html) offered by the same company cost only $60/year per user. It doesn't work for backing up a NAS and doesn't provide as many server-nerd degrees of freedom as I want, but if it works for you it can be far less expensive for the same amount of data. In my case, it was easier to setup Time Machine for each user in the house, since it's just baked into MacOS.
 
+### Backups Fail Due to Lock
+Sometimes you'll see a message like this:
+
+`Fatal: unable to create lock in backend: repository is already locked exclusively by PID 6884 on polkadotninja by root (UID 0, GID 0)`
+
+That means that somehow a backup was interrupted, and you'll have to manually remove that lock. You can do that like this:
+
+`restic -r b2:yourb2account:yourb2bucket unlock`
+
+### You Want To Do Something Slow
+Let's say you want to reindex a Restic repository, but it takes forever and you don't want to stay logged into your Pi for a day while it works.  Use the screen command to disconnect from a session while it works. Log into your Pi, then start a new screen session and run the command:
+
+```
+screen
+restic -r b2:yourb2account:yourb2bucket rebuild-index
+```
+
+To disconnect from that session, just hit `control-a` followed by `d` - now you can safely log out of the Pi without interrupting the command. When you want reconnect to the session to see if it works, just log back into the Pi and type `screen -r`
+
 ## To Do List
 - Better logging
 - More email options to report on nightly backups (now the only option is to use a Gmail account's SMTP server)
